@@ -18,7 +18,7 @@ export default function App() {
 
   const addHandler = (text) => {
     setTodos((prevTodos) => {
-      return [{ text: text, key: Math.random }, ...prevTodos];
+      return [{ text: text, key: Math.random().toString() }, ...prevTodos];
     });
   };
   return (
