@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
-import Header from "./components/Header";
+import { FlatList, StyleSheet, View, Alert, ToastAndroid } from "react-native";
+
 import TodoItem from "./components/TodoItem";
 import AddTodo from "./components/AddTodo";
+import Header from "./components/Header";
 
 export default function App() {
   const [todos, setTodos] = useState([
@@ -17,9 +18,21 @@ export default function App() {
   };
 
   const addHandler = (text) => {
-    setTodos((prevTodos) => {
-      return [{ text: text, key: Math.random().toString() }, ...prevTodos];
-    });
+    if (text.length > 2) {
+      setTodos((prevTodos) => {
+        return [{ text: text, key: Math.random().toString() }, ...prevTodos];
+      });
+    } else {
+      ToastAndroid.show(
+        "Name must be longer than 3 characters",
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER
+      );
+      // Alert.alert("OOPS!", "Length must be greater than 2 characters", [
+      //   { text: "Ok", onPress: () => console.log("Alert Closed") },
+      //   { text: "Cancel", onPress: () => console.log("Alert Closed") },
+      // ]);
+    }
   };
   return (
     <View style={styles.container}>
